@@ -97,16 +97,7 @@ with tab_jeu:
     st.divider()
 
     # Démarrage ou chargement de question
-    if st.session_state.question_actuelle is None:
-        if st.button("Commencer la partie", type="primary", use_container_width=True):
-            if not piocher_nouvelle_question():
-                st.error("Impossible de charger les questions depuis Supabase.")
-
-    if st.session_state.question_actuelle:
-        q = st.session_state.question_actuelle
-        st.subheader(f"Question : {q.get('Question')}")
-
-        # Formulaire de réponse
+    # Formulaire de réponse
         with st.form("form_reponse", clear_on_submit=False):
             rep_utilisateur = st.text_input("Votre réponse :", key="champ_reponse")
             btn_valider = st.form_submit_button("Valider la réponse ", use_container_width=True, type="primary")
@@ -115,7 +106,26 @@ with tab_jeu:
                 st.session_state.reponse_validee = True
                 bonne_rep = str(q.get("réponse", "")).strip()
 
-                if rep_utilisateur.strip().lower() == bonne_rep.lower().replace(" ","").replace("ans",""):
+                # --- NOUVELLE LOGIQUE D'EXTRACTION ---
+                est_correct = False
+                
+                # On cherche s'il y a des chiffres dans la saisie utilisateur ET dans la base de données
+                match_utilisateur = re.search(r'\d+', rep_utilisateur)
+                match_bonne_rep = re.search(r'\d+', bonne_rep)
+
+                if match_bonne_rep and match_utilisateur:
+                    # S'il y a des nombres en jeu, on ne compare QUE les premiers chiffres trouvés
+                    if match_utilisateur.group() == match_bonne_rep.group():
+                        est_correct = True
+                else:
+                    # S'il n'y a pas de chiffres (ex: "Jésus"), on fait une comparaison de texte classique
+                    rep_texte = rep_utilisateur.strip().lower()
+                    bonne_rep_texte = bonne_rep.lower().replace(" ","").replace("ans","")
+                    if rep_texte == bonne_rep_texte:
+                        est_correct = True
+
+                # --- AFFICHAGE DU RÉSULTAT ---
+                if est_correct:
                     st.success(" BRAVO ! C'est la bonne réponse !")
                     st.session_state.score += 1
                     st.balloons()  # Animation de confettis !
