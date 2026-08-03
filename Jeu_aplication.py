@@ -115,7 +115,7 @@ with tab_jeu:
                 st.session_state.reponse_validee = True
                 bonne_rep = str(q.get("réponse", "")).strip()
 
-                if rep_utilisateur.strip().lower() == bonne_rep.lower().replace(" ",""):
+                if rep_utilisateur.strip().lower() == bonne_rep.lower().replace(" ","").replace("ans",""):
                     st.success(" BRAVO ! C'est la bonne réponse !")
                     st.session_state.score += 1
                     st.balloons()  # Animation de confettis !
