@@ -98,7 +98,7 @@ with tab_jeu:
 
     # Démarrage ou chargement de question
     # Formulaire de réponse
-        with st.form("form_reponse", clear_on_submit=False):
+    with st.form("form_reponse", clear_on_submit=False):
             rep_utilisateur = st.text_input("Votre réponse :", key="champ_reponse")
             btn_valider = st.form_submit_button("Valider la réponse ", use_container_width=True, type="primary")
 
