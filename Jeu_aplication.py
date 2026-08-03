@@ -5,7 +5,7 @@ import random
 # --- CONFIGURATION DE LA PAGE STREAMLIT ---
 st.set_page_config(
     page_title="Quiz Communautaire",
-    page_icon="🏆",
+    # page_icon="🏆",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -80,7 +80,7 @@ def piocher_nouvelle_question():
 
 
 # --- INTERFACE UTILISATEUR ---
-st.title("🏆 Quiz Communautaire")
+st.title(" Quiz Communautaire")
 
 # Menu de navigation par onglets
 tab_jeu, tab_ajouter = st.tabs(["🎮 Jouer", "➕ Proposer une question"])
@@ -98,7 +98,7 @@ with tab_jeu:
 
     # Démarrage ou chargement de question
     if st.session_state.question_actuelle is None:
-        if st.button("▶️ Commencer la partie", type="primary", use_container_width=True):
+        if st.button("Commencer la partie", type="primary", use_container_width=True):
             if not piocher_nouvelle_question():
                 st.error("Impossible de charger les questions depuis Supabase.")
 
@@ -109,18 +109,18 @@ with tab_jeu:
         # Formulaire de réponse
         with st.form("form_reponse", clear_on_submit=False):
             rep_utilisateur = st.text_input("Votre réponse :", key="champ_reponse")
-            btn_valider = st.form_submit_button("Valider la réponse 🎯", use_container_width=True, type="primary")
+            btn_valider = st.form_submit_button("Valider la réponse ", use_container_width=True, type="primary")
 
             if btn_valider and not st.session_state.reponse_validee:
                 st.session_state.reponse_validee = True
                 bonne_rep = str(q.get("réponse", "")).strip()
 
                 if rep_utilisateur.strip().lower() == bonne_rep.lower():
-                    st.success("🎉 BRAVO ! C'est la bonne réponse !")
+                    st.success(" BRAVO ! C'est la bonne réponse !")
                     st.session_state.score += 1
                     st.balloons()  # Animation de confettis !
                 else:
-                    st.error(f"❌ Dommage ! La bonne réponse était : **{bonne_rep}**")
+                    st.error(f" Dommage ! La bonne réponse était : **{bonne_rep}**")
 
                 ref = q.get("reference")
                 if ref:
