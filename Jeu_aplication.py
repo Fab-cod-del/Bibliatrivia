@@ -62,7 +62,7 @@ def piocher_nouvelle_question():
     # Filtrer les questions vues moins de 2 fois
     disponibles = [
         q for q in st.session_state.questions
-        if st.session_state.compteur_questions.get(q.get("id"), 0) < 2
+        if st.session_state.compteur_questions.get(q.get("id"), 0) < 1
     ]
 
     if not disponibles:
@@ -80,7 +80,7 @@ def piocher_nouvelle_question():
 
 
 # --- INTERFACE UTILISATEUR ---
-st.title(" Quiz Communautaire")
+st.title(" BIBLE QUIZ")
 
 # Menu de navigation par onglets
 tab_jeu, tab_ajouter = st.tabs(["🎮 Jouer", "➕ Proposer une question"])
@@ -115,7 +115,7 @@ with tab_jeu:
                 st.session_state.reponse_validee = True
                 bonne_rep = str(q.get("réponse", "")).strip()
 
-                if rep_utilisateur.strip().lower() == bonne_rep.lower():
+                if rep_utilisateur.strip().lower() == bonne_rep.lower().replace(" ",""):
                     st.success(" BRAVO ! C'est la bonne réponse !")
                     st.session_state.score += 1
                     st.balloons()  # Animation de confettis !
