@@ -137,7 +137,7 @@ with tab_jeu:
                     st.info(f"📖 **Source / Référence :** {ref}")
 
         # Bouton Question Suivante
-        if st.session_state.reponse_validee:
+    if st.session_state.reponse_validee:
             if st.button("Question Suivante ➡️", use_container_width=True):
                 piocher_nouvelle_question()
                 st.rerun()
