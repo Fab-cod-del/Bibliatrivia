@@ -4,7 +4,7 @@ import random
 
 # --- CONFIGURATION DE LA PAGE STREAMLIT ---
 st.set_page_config(
-    page_title="Quiz Communautaire",
+    page_title="BIBLE QUIZ",
     # page_icon="🏆",
     layout="centered",
     initial_sidebar_state="collapsed"
