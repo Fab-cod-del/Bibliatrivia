@@ -41,7 +41,7 @@ if "reponse_validee" not in st.session_state:
 def telecharger_questions():
     try:
         url = f"{SUPABASE_URL}/rest/v1/Questions?select=*"
-        res = requests.get(url, headers=HEADERS, timeout=5)
+        res = requests.get(url, headers=HEADERS, timeout=15)
         if res.status_code == 200:
             return res.json()
     except Exception as e:
@@ -171,7 +171,7 @@ with tab_ajouter:
                 }
                 try:
                     url = f"{SUPABASE_URL}/rest/v1/Questions"
-                    res = requests.post(url, headers=HEADERS, json=payload, timeout=5)
+                    res = requests.post(url, headers=HEADERS, json=payload, timeout=15)
                     if res.status_code in [200, 201]:
                         st.success("🌐 Question enregistrée avec succès !")
                         st.session_state.questions = []  # Vider le cache pour inclure la nouvelle question
