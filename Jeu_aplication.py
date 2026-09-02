@@ -3,7 +3,7 @@ import requests
 import random
 import re
 
-# --- CONFIGURATION DE LA PAGE STREAMLIT ---
+#  CONFIGURATION DE LA PAGE STREAMLIT 
 st.set_page_config(
     page_title="BIBLE QUIZ",
     # page_icon="🏆",
